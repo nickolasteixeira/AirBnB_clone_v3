@@ -67,12 +67,35 @@ def post_review(place_id):
         place_obj = storage.get('Place', place_id)
         if place_obj is None:
             abort(404)
-        user_obj = storage.get('User', request.get_json().get('user_id'))
-        if user_ojb is None:
+        user_id = request.get_json().get('user_id')
+        user_obj = storage.get('User', user_id)
+        if user_obj is None:
             abort(404)
 
+        text = request.get_json().get('text')
         new_obj = Review(text=text, place_id=place_id, user_id=user_id)
-        storage.save()
+        new_obj.save()
         return jsonify(new_obj.to_dict()), 201
+    except Exception:
+        abort(404)
+
+
+@app_views.route('/reviews/<review_id>', methods=['PUT'], strict_slashes=False)
+def update_review(review_id):
+    '''updates a review based on the review id'''
+    try:
+        review = storage.get('Review', review_id)
+        if review is None:
+            abort(404)
+        if not request.json:
+            return jsonify({'error': 'Not a JSON'}), 400
+
+        new_attrs = request.get_json()
+        dont_add = {'id', 'user_id', 'place_id', 'created_at', 'updated_at'}
+        for key, value in new_attrs.items():
+            if key not in dont_add:
+                setattr(review, key, value)
+        review.save()
+        return jsonify(review.to_dict()), 200
     except Exception:
         abort(404)
