@@ -18,7 +18,7 @@ def return_cities(state_id):
         abort(404)
     return jsonify(new_cities)
 
-@app_views.route('/cities/<city_id>', methods['GET'], strict_slashes=False)
+@app_views.route('/cities/<city_id>', methods=['GET'], strict_slashes=False)
 def return_city(city_id):
     ''' returns the city object associated with the city_id'''
     
