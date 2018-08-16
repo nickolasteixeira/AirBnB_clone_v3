@@ -37,6 +37,8 @@ def delete_city(city_id):
     ''' deletes the city object associated with the city_id'''
     try:
         city_obj = storage.get('City', city_id)
+        if city_obj is None:
+            abort(404)
         city_obj.delete()
         storage.save()
         return jsonify({}), 200
