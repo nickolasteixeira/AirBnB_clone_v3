@@ -21,7 +21,7 @@ class FileStorage:
         if cls is None:
             return self.__objects
 
-        if cls != "":
+        if cls is not None:
             for k, v in self.__objects.items():
                 if cls == k.split(".")[0]:
                     new_dict[k] = v
@@ -78,3 +78,21 @@ class FileStorage:
         Deserialize JSON file to objects
         '''
         self.reload()
+
+    def get(self, cls, id):
+        '''
+            Retrieves one object if exists
+        '''
+        cls_dict = self.all(cls)
+        new_id = cls + '.' + id
+        obj = cls_dict.get(new_id)
+        return obj
+
+    def count(self, cls=None):
+        '''
+           counts the num of objects in particular cls
+        '''
+        count = 0
+        cls_dict = self.all(cls)
+        count = len(cls_dict)
+        return count
