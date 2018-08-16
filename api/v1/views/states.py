@@ -3,6 +3,7 @@ from api.v1.views import app_views
 from flask import jsonify, abort, make_response, request
 from models import storage
 from models import State
+'''App_views routes'''
 
 
 @app_views.route('/states', methods=['GET'], strict_slashes=False)
@@ -25,10 +26,8 @@ def return_states_id(state_id):
         abort(404)
 
 
-@app_views.route(
-    '/states/<state_id>',
-    methods=['DELETE'],
-    strict_slashes=False)
+@app_views.route('/states/<state_id>',
+                 methods=['DELETE'], strict_slashes=False)
 def delete_states_id(state_id):
     ''' deletes the state with a corresponding id'''
     try:
