@@ -12,15 +12,13 @@ from models import Review
     strict_slashes=False)
 def return_reviews(place_id):
     ''' returns all reviews with the corresponding place_id'''
+    if storage.get('Place', place_id) is None:
+        abort(404)
     all_reviews = storage.all('Review')
     new_reviews = []
     for key, value in all_reviews.items():
-        obj = value.to_dict()
-        if place_id == obj.get('place_id'):
-            new_reviews.append(obj)
-
-    if len(new_reviews) == 0:
-        abort(404)
+        if place_id == value.place_id:
+            new_reviews.append(value.to_dict())
     return jsonify(new_reviews), 201
 
 
