@@ -1,12 +1,10 @@
 #!/usr/bin/python3
+'''Basic Flask Application'''
 from flask import Flask, Blueprint, make_response, jsonify
 from os import getenv
 from models import storage
 from api.v1.views import app_views
 from flask_cors import CORS
-"""
-Basic Flask App
-"""
 
 
 app = Flask(__name__)
