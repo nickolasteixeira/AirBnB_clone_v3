@@ -122,7 +122,7 @@ class test_DBStorage(unittest.TestCase):
         '''
         self.assertTrue(isinstance(storage, DBStorage))
 
-        def test_get_db_storage(self):
+    def test_get_db_storage(self):
         """
         Test to check Get method of db_storage
         """

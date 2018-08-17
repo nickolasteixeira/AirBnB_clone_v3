@@ -144,7 +144,7 @@ class testFileStorage(unittest.TestCase):
         Test to check Count method for file_storage
         """
         storage.reload()
-        result = storage.all("")
+        result = storage.all()
         count = storage.count(None)
         self.assertEqual(len(result), count)
         result = storage.all("State")
