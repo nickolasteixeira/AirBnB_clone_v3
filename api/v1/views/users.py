@@ -1,9 +1,9 @@
 #!/usr/bin/python3
+'''App_views routes'''
 from api.v1.views import app_views
 from flask import jsonify, abort, make_response, request
 from models import storage
 from models import User
-'''App_views routes'''
 
 
 @app_views.route('/users/<user_id>', methods=['GET'], strict_slashes=False)
