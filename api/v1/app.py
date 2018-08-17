@@ -11,6 +11,7 @@ app = Flask(__name__)
 app.register_blueprint(app_views)
 CORS(app, resources={r"/*": {"origins": "0.0.0.0"}})
 
+
 @app.teardown_appcontext
 def teardown(self):
     """
@@ -18,12 +19,14 @@ def teardown(self):
     """
     storage.close()
 
+
 @app.errorhandler(404)
 def errorhandler(error):
     """
     Error handling for 404
     """
     return make_response(jsonify({'error': 'Not found'}), 404)
+
 
 if __name__ == "__main__":
     env_var = {'host': '0.0.0.0', 'port': 5000}
