@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-from flask import Flask, Blueprint, make_response
+from flask import Flask, Blueprint, make_response, jsonify
 from os import getenv
 from models import storage
 from api.v1.views import app_views
@@ -19,7 +19,7 @@ def teardown(self):
     """
     storage.close()
 
-@app_views.errorhandler(404)
+@app.errorhandler(404)
 def errorhandler(error):
     """
     Error handling for 404
