@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-from flask import Flask, Blueprint
+from flask import Flask, Blueprint, make_response
 from os import getenv
 from models import storage
 from api.v1.views import app_views
@@ -19,6 +19,12 @@ def teardown(self):
     """
     storage.close()
 
+@app_views.errorhandler(404)
+def errorhandler(error):
+    """
+    Error handling for 404
+    """
+    return make_response(jsonify({'error': 'Not found'}), 404)
 
 if __name__ == "__main__":
     env_var = {'host': '0.0.0.0', 'port': 5000}
