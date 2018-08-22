@@ -34,6 +34,9 @@ def delete_amenity_id(amenity_id):
     """
     Deletes an Amenity by id
     """
+    amenity = storage.get("Amenity", amenity_id)
+    if not amenity:
+        abort(404)
     try:
         storage.delete(storage.get('Amenity', amenity_id))
         storage.save()
