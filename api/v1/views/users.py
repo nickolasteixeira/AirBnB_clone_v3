@@ -6,6 +6,13 @@ from models import storage
 from models import User
 
 
+@app_views.route('/users/', methods=['GET'], strict_slashes=False)
+def get_users():
+    ''' returns all users '''
+    users = [user.to_dict() for user in storage.all('User').values()]
+    return jsonify(users)
+
+
 @app_views.route('/users/<user_id>', methods=['GET'], strict_slashes=False)
 def return_user(user_id):
     '''return user corresponding to user_id'''
