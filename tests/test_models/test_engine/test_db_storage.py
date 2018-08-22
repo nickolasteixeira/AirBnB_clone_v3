@@ -2,6 +2,7 @@
 '''
     Testing the file_storage module.
 '''
+
 import time
 import unittest
 import sys
@@ -22,6 +23,7 @@ class test_DBStorage(unittest.TestCase):
     '''
         Testing the DB_Storage class
     '''
+
     @classmethod
     def setUpClass(cls):
         '''
