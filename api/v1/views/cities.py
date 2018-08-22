@@ -12,24 +12,26 @@ from models import City
     strict_slashes=False)
 def return_cities(state_id):
     '''return list of all the cities associated with the state_id'''
+    if storage.get('State', state_id) is None:
+        abort(404)
     all_cities = storage.all('City')
     new_cities = []
     for key, val in all_cities.items():
-        obj = val.to_dict()
-        if state_id == obj.get('state_id'):
-            new_cities.append(obj)
-    if len(new_cities) == 0:
-        abort(404)
+        if state_id == val.state_id:
+            new_cities.append(val.to_dict())
     return jsonify(new_cities)
 
 
 @app_views.route('/cities/<city_id>', methods=['GET'], strict_slashes=False)
 def return_city(city_id):
     ''' returns the city object associated with the city_id'''
-    city_obj = storage.get('City', city_id)
-    if city_obj is not None:
-        return jsonify(city_obj.to_dict())
-    abort(404)
+    try:
+        city_obj = storage.get('City', city_id)
+        if city_obj is not None:
+            return jsonify(city_obj.to_dict())
+        abort(404)
+    except Exception:
+        abort(404)
 
 
 @app_views.route('/cities/<city_id>', methods=['DELETE'], strict_slashes=False)
@@ -39,7 +41,7 @@ def delete_city(city_id):
         city_obj = storage.get('City', city_id)
         if city_obj is None:
             abort(404)
-        city_obj.delete()
+        storage.delete(city_obj)
         storage.save()
         return jsonify({}), 200
     except Exception:
