@@ -12,11 +12,17 @@ from models import Review
     strict_slashes=False)
 def return_reviews(place_id):
     ''' returns all reviews with the corresponding place_id'''
-   place = storage.get('Place', place_id)
-   if not place:
-       abort(404)
-    reviews = [review.to_dict() for review in place.reviews]
-    return jsonify(reviews)
+    all_reviews = storage.all('Review')
+    new_reviews = []
+    for key, value in all_reviews.items():
+        obj = value.to_dict()
+        if place_id == obj.get('place_id'):
+            new_reviews.append(obj)
+
+    if len(new_reviews) == 0:
+        abort(404)
+    return jsonify(new_reviews), 201
+
 
 @app_views.route('/reviews/<review_id>', methods=['GET'], strict_slashes=False)
 def return_review(review_id):
