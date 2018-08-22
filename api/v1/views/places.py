@@ -37,12 +37,13 @@ def delete_place_id(place_id):
     """
     Deletes a Place by id
     """
-    try:
+    place = storage.get("Place", place_id)
+    if not place:
+        abort(404)
+    else:
         storage.delete(storage.get('Place', place_id))
         storage.save()
         return jsonify({}), 200
-    except Exception:
-        abort(404)
 
 
 @app_views.route("/cities/<string:city_id>/places", methods=["POST"],
