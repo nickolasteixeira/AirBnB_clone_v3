@@ -10,7 +10,6 @@ from models.engine.db_storage import DBStorage
 from models import storage
 from models.user import User
 from models.state import State
-from models import storage
 from console import HBNBCommand
 from os import getenv
 from io import StringIO
