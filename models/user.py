@@ -37,8 +37,8 @@ class User(BaseModel, Base):
         return self.pwd
 
     @password.setter
-    def password(self, pass):
+    def password(self, pas):
         """
         Password setter
         """
-        self.pwd = md5(pass.encode()).hexdigest()
+        self.pwd = md5(pas.encode()).hexdigest()
