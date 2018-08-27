@@ -81,6 +81,8 @@ class BaseModel:
         if "pwd" in cp_dct:
             cp_dict["password"] = cp_dct["pwd"]
             cp_dct.pop("pwd", None)
+        if "amenities" in cp_dct:
+            cp_dct.pop("amenities", None)
         if getenv('HBNB_TYPE_STORAGE') == 'db':
             cp_dct.pop("password", None)
         return (cp_dct)
