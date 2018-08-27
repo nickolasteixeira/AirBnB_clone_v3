@@ -79,7 +79,7 @@ class BaseModel:
         if hasattr(self, "_sa_instance_state"):
             del cp_dct["_sa_instance_state"]
         if "pwd" in cp_dct:
-            cp_dict["password"] = cp_dct["pwd"]
+            cp_dct["password"] = cp_dct["pwd"]
             cp_dct.pop("pwd", None)
         if "amenities" in cp_dct:
             cp_dct.pop("amenities", None)
